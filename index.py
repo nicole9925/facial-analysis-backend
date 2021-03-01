@@ -10,7 +10,7 @@ from io import BytesIO
 import shutil
 from preprocess_image import detect_face
 from io import BytesIO
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 import numpy as np
 import tensorflow as tf
 import cv2
