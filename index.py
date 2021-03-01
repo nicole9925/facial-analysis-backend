@@ -32,19 +32,19 @@ def index():
 @app.route('/api/clear/')
 def clear():
 
-    path =  os.path.join(os.getcwd(), UPLOAD_FOLDER)
-    if os.path.exists(path):
-        shutil.rmtree(path)
+    # path =  os.path.join(os.getcwd(), UPLOAD_FOLDER)
+    # if os.path.exists(path):
+    #     shutil.rmtree(path)
 
-    os.mkdir(UPLOAD_FOLDER)
+    # os.mkdir(UPLOAD_FOLDER)
 
-    path =  os.path.join(os.getcwd(), GEN_FOLDER)
-    if os.path.exists(path):
-        shutil.rmtree(path)
+    # path =  os.path.join(os.getcwd(), GEN_FOLDER)
+    # if os.path.exists(path):
+    #     shutil.rmtree(path)
 
-    os.mkdir(GEN_FOLDER)
+    # os.mkdir(GEN_FOLDER)
 
-    return "Made directory"
+    return ("<h1>test</h1>")
 
 @app.route('/api/upload/', methods=['POST'])
 def fileUpload():
@@ -55,7 +55,7 @@ def fileUpload():
 
     image_data = bytes(request.form.get('file'), encoding="ascii")
     im = Image.open(BytesIO(base64.b64decode(image_data))).convert('RGB')
-    im.save(filename)
+    # im.save(filename)
 
     # Preprocess image, make predictions
     _, image_encoded, image = preprocess(filename)
@@ -86,7 +86,7 @@ def preprocess(file_path):
 
     #Crop face
     image = detect_face(file_path)
-    image.save(gen_path)
+    # image.save(gen_path)
 
     img_str = encode_image(image)
 
@@ -148,7 +148,7 @@ def encode_image(image):
     Encodes image to be sent to client-side
     """
     buffered = BytesIO()
-    image.save(buffered, format="JPEG")
+    # image.save(buffered, format="JPEG")
     img_str = base64.b64encode(buffered.getvalue()).decode('ASCII')
     return img_str
 
