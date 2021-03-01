@@ -31,20 +31,9 @@ def index():
 
 @app.route('/api/clear/')
 def clear():
-
-    # path =  os.path.join(os.getcwd(), UPLOAD_FOLDER)
-    # if os.path.exists(path):
-    #     shutil.rmtree(path)
-
-    # os.mkdir(UPLOAD_FOLDER)
-
-    # path =  os.path.join(os.getcwd(), GEN_FOLDER)
-    # if os.path.exists(path):
-    #     shutil.rmtree(path)
-
-    # os.mkdir(GEN_FOLDER)
-
-    return ("<h1>test</h1>")
+    response = jsonify(message="Simple server is running")
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 @app.route('/api/upload/', methods=['POST'])
 def fileUpload():
@@ -79,6 +68,7 @@ def fileUpload():
     response= json.dumps(data),
     mimetype='application/json'
         )
+    resp.headers["Access-Control-Allow-Origin"] = "*"
     return resp
 
 def preprocess(file_path):
