@@ -17,6 +17,7 @@ import cv2
 from werkzeug.exceptions import HTTPException
 from util import *
 import numpy as np
+from flask_cors import CORS, cross_origin
 
 UPLOAD_FOLDER = 'static/uploads/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -24,24 +25,28 @@ GEN_FOLDER = 'static/generated_images'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+CORS(app)
 
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
     return response
-    
+
 @app.route('/', methods=['GET', 'POST'])
+@cross_origin()
 def index(): 
     return ("<h1>Welcome to backend</h1>")
 
 @app.route('/api/clear/')
+@cross_origin()
 def clear():
     response = jsonify(message="Simple server is running")
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
 @app.route('/api/upload/', methods=['POST'])
+@cross_origin()
 def fileUpload():
     # Decode and save original file
     global name 
