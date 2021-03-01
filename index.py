@@ -25,6 +25,12 @@ GEN_FOLDER = 'static/generated_images'
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    return response
+    
 @app.route('/', methods=['GET', 'POST'])
 def index(): 
     return ("<h1>Welcome to backend</h1>")
